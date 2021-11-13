@@ -7,6 +7,8 @@ import {
   Param,
   Patch,
   Query,
+  UseInterceptors,
+  ClassSerializerInterceptor,
   NotFoundException,
 } from '@nestjs/common';
 
@@ -24,6 +26,7 @@ export class UsersController {
     this.usersService.create(body.email, body.password);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     console.log('findOne id is: ', id);
