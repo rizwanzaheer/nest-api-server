@@ -8,8 +8,21 @@ content-type: application/json
 }
 
 ### get specific user
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/234
 
 
 ### get all users with specific email
 GET http://localhost:3000/auth?email=test@gmail.com
+
+
+### update user 
+PATCH  http://localhost:3000/auth/324234
+content-type: application/json
+
+{
+  "email": "tt@gmail.com",
+  "password": "ttpassword"
+}
+
+### delete specific user using id
+DELETE http://localhost:3000/auth/234234
