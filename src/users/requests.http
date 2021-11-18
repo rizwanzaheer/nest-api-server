@@ -1,11 +1,27 @@
+### get who am i
+GET http://localhost:3000/auth/whoami
+
 ### create user 
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "rizwan@gmail.com",
+  "email": "test1@gmail.com",
   "password": "password"
 }
+
+### login/Signin user 
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "test1@gmail.com",
+  "password": "password"
+}
+
+
+### signout 
+POST http://localhost:3000/auth/signout
 
 ### get specific user
 GET http://localhost:3000/auth/1
@@ -26,3 +42,9 @@ content-type: application/json
 
 ### delete specific user using id
 DELETE http://localhost:3000/auth/234234
+
+# ### Set Color
+# GET http://localhost:3000/auth/colors/rizwanzaheer
+
+# ### Get Color
+# GET http://localhost:3000/auth/colors

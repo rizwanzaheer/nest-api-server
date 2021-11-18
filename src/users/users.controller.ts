@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   NotFoundException,
+  Session,
 } from '@nestjs/common';
 
 import { CreateUserDto } from './dtos/create-user.dtos';
@@ -18,16 +19,49 @@ import { UsersService } from './users.service';
 
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 
-  @Post('signup')
-  createUser(@Body() body: CreateUserDto) {
+  // @Get('/colors/:colors')
+  // setColor(@Param('colors') colors: string, @Session() session: any) {
+  //   session.colors = colors;
+  //   console.log('session is: ', session);
+  // }
+
+  // @Get('/colors')
+  // getColor(@Session() session: any) {
+  //   console.log('session.color is: ', session.colors);
+  //   return session.colors;
+  // }
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
+  @Post('/signup')
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     console.log('createUser body is: ', body);
-    this.usersService.create(body.email, body.password);
+    // this.usersService.create(body.email, body.password);
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user;
+  }
+  @Post('/signin')
+  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
+  }
+  @Post('/signout')
+  async signOut(@Session() session: any) {
+    session.userId = null;
   }
 
   @Get('/:id')
