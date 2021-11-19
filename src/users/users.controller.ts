@@ -21,6 +21,8 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 
+import { CurrentUser } from './decorators/current-user.decorator';
+
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
@@ -40,9 +42,13 @@ export class UsersController {
   //   console.log('session.color is: ', session.colors);
   //   return session.colors;
   // }
+  // @Get('/whoami')
+  // whoAmI(@Session() session: any) {
+  //   return this.usersService.findOne(session.userId);
+  // }
   @Get('/whoami')
-  whoAmI(@Session() session: any) {
-    return this.usersService.findOne(session.userId);
+  whoAmI(@CurrentUser() user: string) {
+    return user;
   }
 
   @Post('/signup')
