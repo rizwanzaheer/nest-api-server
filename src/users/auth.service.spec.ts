@@ -69,7 +69,7 @@ describe('AuthService', () => {
     }
   });
 
-  it('return a user if correct password is provided', async (done) => {
+  it('return a user if correct password is provided', async () => {
     fakeUserService.find = () =>
       Promise.resolve([
         {
@@ -79,12 +79,8 @@ describe('AuthService', () => {
         } as User,
       ]);
 
-    try {
-      const user = await service.signin('asdfsdf@asdf.com', 'mypassword');
-      expect(user).toBeDefined();
-    } catch (e) {
-      done();
-    }
+    const user = await service.signin('asdfsdf@asdf.com', 'mypassword');
+    expect(user).toBeDefined();
 
     // const user = await service.signup('asdfsdf@asdf.com', 'mypassword');
     // console.log('user: ', user);
