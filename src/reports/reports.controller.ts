@@ -3,7 +3,6 @@ import { AuthGuard } from 'src/guards/auth.guards';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
 
-ReportsService;
 @Controller('reports')
 export class ReportsController {
   constructor(private reportService: ReportsService) {}
