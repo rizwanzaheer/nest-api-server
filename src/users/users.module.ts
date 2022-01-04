@@ -4,19 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
-
 import { User } from './user.entity';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptors';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [
     UsersService,
     AuthService,
-    // CurrentUserInterceptor
     {
-      provide: APP_INTERCEPTOR, // this is global state interceptor
+      provide: APP_INTERCEPTOR,
       useClass: CurrentUserInterceptor,
     },
   ],

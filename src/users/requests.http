@@ -1,50 +1,40 @@
-### get who am i
-GET http://localhost:3000/auth/whoami
-
-### create user 
+### Create a new user
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "test1@gmail.com",
-  "password": "password"
+  "email": "test4@test.com",
+  "password": "12345"
 }
 
-### login/Signin user 
+### Sign in as an existing user
 POST http://localhost:3000/auth/signin
 content-type: application/json
 
 {
-  "email": "test1@gmail.com",
-  "password": "password"
+  "email": "test@test.com",
+  "password": "12345"
 }
 
+### Get the currently signed in user
+GET http://localhost:3000/auth/whoami
 
-### signout 
+### Sign out
 POST http://localhost:3000/auth/signout
 
-### get specific user
-GET http://localhost:3000/auth/1
+### Find a particular user with a given ID
+GET http://localhost:3000/auth/4
 
+### Find all users with a given email
+GET http://localhost:3000/auth?email=asdf@asdf.com
 
-### get all users with specific email
-GET http://localhost:3000/auth?email=test@gmail.com
+### Delete a user given id
+DELETE http://localhost:3000/auth/3
 
-
-### update user 
-PATCH  http://localhost:3000/auth/324234
+### Update a user
+PATCH http://localhost:3000/auth/4
 content-type: application/json
 
 {
-  "email": "tt@gmail.com",
-  "password": "ttpassword"
+  "password": "aaaaa"
 }
-
-### delete specific user using id
-DELETE http://localhost:3000/auth/234234
-
-# ### Set Color
-# GET http://localhost:3000/auth/colors/rizwanzaheer
-
-# ### Get Color
-# GET http://localhost:3000/auth/colors
